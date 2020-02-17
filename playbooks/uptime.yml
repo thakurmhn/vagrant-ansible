@@ -1,0 +1,7 @@
+- name: show return valune of command
+  hosts: vagrant
+  tasks:
+          - name: capture output of id command
+            command: uptime
+            register: _uptime
+          - debug: msg="server is up since {{ _uptime.stdout }}"

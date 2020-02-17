@@ -1,0 +1,14 @@
+---
+- hosts: centos
+  become: yes 
+  tasks:
+          - name: Insert block to etc sshd_config
+            blockinfile: 
+              block: "{{ lookup('file', '../files/motd') }}"
+              dest: /etc/motd
+              backup: yes
+
+
+
+
+

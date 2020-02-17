@@ -1,0 +1,7 @@
+- name: show return valune of command
+  hosts: centos
+  tasks:
+          - name: capture output of id command
+            command: id -un
+            register: login
+          - debug: var=login
