@@ -54,8 +54,8 @@ Login to VMs
 ```
 vagrant ssh centoss1
 ```
-update ansible_port and ansible_private_key_file path static inventory file. Static inventory file name is "inventory"
-To see path ansible_private_key_file run below command, most likely no need to update ansible_port variable
+Update 'ansible_port' and 'ansible_private_key_file' variables in static inventory file. Static inventory file name is "inventory".
+To see path of 'ansible_private_key_file' run below command, most likely no need to update 'ansible_port' variable
 
 ```
 ./dynamicinventory.py --host centoss1
