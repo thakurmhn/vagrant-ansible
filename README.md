@@ -1,6 +1,6 @@
 # Vagrant Lab for Ansible learning
 
-Quickly create ansible learning or practice lab using vagrant
+Quickly create ansible learning or practice lab using vagrant. 
 Follwing instructions will quickly create two centos and one ubuntu hosts
 
 
@@ -54,7 +54,12 @@ Login to VMs
 ```
 vagrant ssh centoss1
 ```
+update ansible_port and ansible_private_key_file path static inventory file. Static inventory file name is "inventory"
+To see path ansible_private_key_file run below command, most likely no need to update ansible_port variable
 
+```
+./dynamicinventory.py --host centoss1
+```
 ## Running the tests
 
 ```
@@ -67,11 +72,8 @@ ansible -i dynamicinventory.py all -m ping
 
 ansible-playbook -i dynamicinventory.py playbooks/uptime.yml
 ```
+For more learning playbooks see here 
 
-Check ssh port and if require update in static inventory file
-
-```
-./dynamicinventory.py --host centoss1
-``
+* [MoreLearnigPlaybooks](https://github.com/thakurmhn/content-ansible-playbooks/tree/master/Playbooks)
 
 ## Congratulations
