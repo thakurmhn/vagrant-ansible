@@ -19,7 +19,17 @@ sudo dpkg -i virtualbox-6.1_6.1.2-135662~Ubuntu~bionic_amd64.deb
 sudo dpkg -i vagrant_2.2.7_x86_64.deb
 
 ```
+Install Ansible
 
+* [InstallAnsible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) - Ansible Documentation
+
+
+```
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python get-pip.py --user
+pip install --user ansible
+
+```
 
 Steps
 
