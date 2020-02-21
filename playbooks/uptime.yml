@@ -1,5 +1,6 @@
 - name: show return valune of command
-  hosts: vagrant
+  hosts: centos
+  become: yes
   tasks:
           - name: capture output of id command
             command: uptime

@@ -42,7 +42,7 @@ def main():
    args = parse_args()
    if args.list:
        hosts = list_running_hosts()
-       json.dump({'vagrant': hosts, 'centos': hosts[:-1]}, sys.stdout)
+       json.dump({'vagrant': hosts[:], 'centos': hosts[:-1]}, sys.stdout)
    else:
        details = get_host_details(args.host)
        json.dump(details, sys.stdout)

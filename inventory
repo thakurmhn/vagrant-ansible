@@ -5,7 +5,7 @@ ansible_connection=ssh
 #check and update ssh ports if require
 
 [centos]
-centoss1 ansible_port=2222  ansible_host=127.0.0.1 ansible_user=vagrant ansible_private_key_file=/home/mohan/vagrant-ansible/.vagrant/machines/centoss1/virtualbox/private_key 
+centoss1 ansible_port=2222  ansible_host=127.0.0.1 ansible_user=vagrant ansible_private_key_file=/home/mohan/vagrant-ansible/.vagrant/machines/centoss1/virtualbox/private_key ansible_become=yes
 
 centoss2 ansible_port=2200  ansible_host=127.0.0.1 ansible_user=vagrant ansible_private_key_file=/home/mohan/vagrant-ansible/.vagrant/machines/centoss2/virtualbox/private_key
 

@@ -1,0 +1,11 @@
+---
+- hosts: centos
+
+  tasks: 
+    - name: check fdisk output
+      command: fdisk -l
+      register: disklayout
+
+    - name: print output
+      debug:
+        var: disklayout.stdout
