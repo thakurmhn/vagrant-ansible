@@ -1,0 +1,20 @@
+---
+- hosts: centos
+
+  vars: 
+    user_name: testuser
+
+  tasks: 
+
+    - name: check if user exist
+      shell: "id -u {{ user_name }}"
+      ignore_errors: true
+      changed_when: false
+      register: user_stat
+
+
+    - name: Change passwd
+      user: 
+        name: "{{ user_name }}"
+        password: '$6$mysecretsalt$qJbapG68nyRab3gxvKWPUcs2g3t0oMHSHMnSKecYNpSi3CuZm.GbBqXO8BE6EI6P1JUefhA0qvD7b5LSh./PU1'
+      when: user_stat.rc == 0 
