@@ -1,0 +1,28 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: yes
+
+  vars:
+    agent_software:
+      config:
+              #          agent1: 
+              #          user: testuser
+              #          port: 8009
+              #          master: server1
+
+  tasks:
+    - name: Change animals.birds.cardinals.feathers to "red".
+      set_fact:
+              agent_software: "{{ agent_software|combine({'config': {agent_name: {'port':  agent_port, 'user': agent_user, 'master': agent_master }}}, recursive=True) }}"
+
+    - name: Print updated dict vars
+      debug: var=agent_software
+
+    - name: Print keys/values from dict facts
+      debug: var=ansible_facts.agent_software.config.user
+
+    - name: Write the updated agent_software dict to YAML file
+      template: 
+        src: ../files/agent_software.yml
+        dest: /tmp
