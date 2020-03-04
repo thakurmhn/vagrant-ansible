@@ -1,4 +1,6 @@
 ---
+## How to RUN : ansible-playbook -i inventory playbooks/test_nested_dict_vars.yml -e agent_port=9090 -e agent_name=agent2 -e agent_user=user2 -e agent_master=server2
+#
 - hosts: localhost
   connection: local
   gather_facts: yes
