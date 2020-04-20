@@ -1,0 +1,75 @@
+---
+
+## How to run
+## ansible-playbook -i inventoryfile  network-latency-check.yml -e target=<group> --limit <host>
+
+
+- hosts: "{{ target }}"
+
+  vars: 
+    # List of destination IPS
+    dest_ip:
+      - 172.17.0.2
+      - 192.168.56.1
+
+  tasks: 
+
+    - block:
+
+    
+      - name: Dynamically find destination IP address on host running this plyabook
+        shell: "lsof -i tcp | grep ESTABLISHED | awk '{print $9}' | awk -F'->' '{print $2}' | cut -d: -f1"
+        changed_when: false
+        ignore_errors: true
+        register: est_ip
+
+      - name: ping latency check between connection established IPs
+        command:  " ping -c 5 {{ item }}"
+        changed_when: false
+        ignore_errors: true
+        register: ping_out
+        with_items: "{{ est_ip.stdout_lines }}"
+
+      - name: print ping result of  connection established IPs
+        debug:
+          msg: "{{ item.stdout_lines }}"
+        with_items: "{{ ping_out.results }}"
+
+      - name: generate MTR report of est_ips
+        shell:  "mtr -w -c 5 -r {{ item }}"
+        changed_when: false
+        ignore_errors: true
+        register: mtrrpt
+        with_items: "{{ est_ip.stdout_lines }}"
+
+      - name: print mtr report
+        debug: 
+          msg: "{{ item.stdout_lines }}"
+        with_items: "{{ mtrrpt.results }}"
+
+      when: ansible_distribution == 'RedHat' or ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
+
+    - name: ping the List of IPs
+      shell: "ping -c 5 {{ item }}"
+      changed_when: false
+      ignore_errors: true
+      register: pong
+      with_items: "{{ dest_ip }}"
+
+    - name: print ping statistics
+      debug:
+        msg: "{{ item.stdout_lines }}"
+      with_items: "{{ pong.results }}"
+
+    - name: generate MTR report
+      shell:  "mtr -w -c 5 -r {{ item }}"
+      changed_when: false
+      ignore_errors: true
+      register: nwrpt
+      with_items: "{{ dest_ip }}"
+
+    - name: print mtr report
+      debug: 
+        msg: "{{ item.stdout_lines }}"
+      with_items: "{{ nwrpt.results }}"
+
