@@ -1,0 +1,46 @@
+---
+## Dynamically grouping of hosts
+
+- hosts: "{{ target }}"
+  order: sorted
+  gather_facts: true
+
+
+  tasks: 
+
+    group_by:
+      key: "{{ ansible_local.patching.boot_seq}}"
+    when: ansible_local.patching.boot_seq == "master_host"  
+#Grouping of master_hosts based on local_facts. localfact file is /etc/ansible/fact.d/patching
+#content - {"boot_seq": "master_host"}, fact file should be present on each master_host
+
+
+- hosts: "{{ target }}"
+  order: sorted
+  gather_facts: true
+
+
+  tasks:
+
+    group_by:
+      key: "{{ ansible_local.patching.boot_seq}}"
+    when: ansible_local.patching.boot_seq == "node_host"
+
+## Run playbook on dynamically created group
+
+- hosts: master_hosts
+  serial: 1
+  pre_tasks: 
+    - include_tasks: /path/playbook.yml
+  roles: 
+    - role-name
+  post_tasks: 
+    - include_tasks: /path/to/playbook.yml
+
+
+## pass parameters to roles
+
+- hosts: target
+
+  roles: 
+    - { role: role_name, var1: value, var2: value }

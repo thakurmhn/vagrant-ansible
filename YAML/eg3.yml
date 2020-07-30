@@ -1,0 +1,5 @@
+---
+
+no_quotes: this is a string example\n
+double_quotes: "this is a string example\n"
+single_quotes: 'this is a string example\n'

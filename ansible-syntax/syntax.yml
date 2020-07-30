@@ -1,0 +1,25 @@
+---
+
+- name: check file exist 
+  stat: 
+    path: /etc/systemd/system/nginx.service
+    register: service_stat
+
+- name: do something if file exist
+  command: uptime
+  when: service_stat.stat.exist
+
+## ---------------------------
+
+## Looping dictionary
+
+- name: Loop dictionary
+  command: "{{ playbook_dir }}../scripts/scritp.py {{ inventory_hostname }} {{ item.somekey }} {{ item.somevalue }}"
+  with_items: 
+    - {"somekey: "argument1", somevalue: "argument2"}
+
+## --------------------
+
+
+
+

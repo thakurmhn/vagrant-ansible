@@ -1,0 +1,2 @@
+[windows]
+192.168.0.4 ansible_connection=winrm ansible_user=Admin ansible_password='Theron@234' ansible_winrm_server_cert_validation=ignore

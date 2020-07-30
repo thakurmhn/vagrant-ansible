@@ -1,0 +1,8 @@
+---
+example_key_1:
+  - list item 1
+  - list item 2
+
+example_key_2:
+  - list item 3
+  - list item 4
